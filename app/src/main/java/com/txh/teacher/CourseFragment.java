@@ -1,5 +1,6 @@
 package com.txh.teacher;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,11 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.txh.R;
 import com.txh.json.course.Course;
 import com.txh.json.course.CourseInfo;
+import com.txh.utils.ToastUtil;
 import com.txh.utils.UrlUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,6 +37,11 @@ public class CourseFragment extends Fragment {
 
     private View rootView;
 
+    //保存服务器数据
+    private String serverData;
+
+    Context context;
+
     //课表中的每个格子
     TextView course_1_1, course_1_2, course_1_3, course_1_4, course_1_5;
     TextView course_2_1, course_2_2, course_2_3, course_2_4, course_2_5;
@@ -45,40 +54,20 @@ public class CourseFragment extends Fragment {
     private Spinner course_weeknum, course_classroomname;
     private Button course_query;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
     public CourseFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment CourseFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static CourseFragment newInstance() {
         CourseFragment fragment = new CourseFragment();
-//        Bundle args = new Bundle();
-//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        context = getActivity();
     }
 
     @Override
@@ -88,15 +77,37 @@ public class CourseFragment extends Fragment {
             rootView = inflater.inflate(R.layout.fragment_course, container, false);
         }
         initCourse();
-        Log.d("CourseFragment", "onCreateView: " + "开始");
+        //默认显示第一周101实验室的情况
+        defaultShow();
         course_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //先重置所有格子，再来显示新的数据
+                resetGrid();
+
                 Integer weekNum = getWeekNum();
-                Log.d("CourseFragment", "onClick: " + weekNum);
                 String classroomName = getClassroomName();
-                Log.d("CourseFragment", "onClick: " + classroomName);
-                getServerDataAndToSet(weekNum, classroomName);
+                getServerData(weekNum, classroomName);
+                //实例化Gson的时候要指定时间格式，不然解析Json中的时间数据的时候要报错
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                //等待子线程拿到服务器数据
+                while (serverData == null) {
+
+                }
+                //反序列化,Json数据转对象
+                CourseInfo courseInfo = gson.fromJson(serverData, CourseInfo.class);
+                Log.d("CourseFragment", "onClick: " + serverData);
+                List<Course> courseList = courseInfo.getCourse();
+                for (int i=0; i<courseList.size(); i++) {
+                    String teacherName = courseList.get(i).getRealname();
+                    String courseName = courseList.get(i).getCourseName();
+                    Integer week = courseList.get(i).getWeek();
+                    Integer dayTimes = courseList.get(i).getDayTimes();
+                    setCourseData(teacherName, courseName, week, dayTimes);
+                }
+                //显示完了就把上一次的数据清空，避免影响下一次的查询
+                serverData = null;
+                ToastUtil.showShortToast(context, "查询成功！");
             }
         });
         return rootView;
@@ -344,7 +355,7 @@ public class CourseFragment extends Fragment {
      * @param weekNum 第几周
      * @param classroomName 实验室名
      */
-    private void getServerDataAndToSet(Integer weekNum, String classroomName) {
+    private void getServerData(Integer weekNum, String classroomName) {
         OkHttpClient okHttpClient = new OkHttpClient();//实例化OkHttp的请求器
         String url = UrlUtil.url + "/course/getAllCourse?week_num=" + weekNum +"&classroom_name=" + classroomName;
         Log.d("CourseFragment", "onClick: " + url);
@@ -364,22 +375,49 @@ public class CourseFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {//请求结束，代表跟服务器通信成功，但不一定跟url通信成功，可能404
                 if (response.isSuccessful()) {//如果响应是成功的，才进行操作
-                    Gson gson = new Gson();
-                    String json = response.body().string();
-                    Log.d("CourseFragment", "onResponse: " + json);
-                    //反序列化,Json数据转对象
-                    CourseInfo courseInfo = gson.fromJson(json, CourseInfo.class);
-                    List<Course> courseList = courseInfo.getCourse();
-                    for (int i=0; i<courseList.size(); i++) {
-                        String teacherName = courseList.get(i).getRealname();
-                        String courseName = courseList.get(i).getCourseName();
-                        Log.d("CourseFragment", "onResponse: " + courseName);
-                        Integer week = courseList.get(i).getWeek();
-                        Integer dayTimes = courseList.get(i).getDayTimes();
-                        setCourseData(teacherName, courseName, week, dayTimes);
-                    }
+                    serverData = response.body().string();
+                    Log.d("CourseFragment", "onResponse: " + serverData);
                 }
             }
         });
+    }
+
+    /**
+     * 重置所有格子
+     */
+    private void resetGrid() {
+        for (int i=1; i<=7; i++) {
+            for (int j=1; j<=5; j++) {
+                TextView textView = getGrid(i, j);
+                textView.setText(null);
+                textView.setBackgroundResource(R.drawable.ripple_course);
+            }
+        }
+    }
+
+    /**
+     * 默认显示第一周101实验室的情况
+     */
+    private void defaultShow() {
+        getServerData(1, "101");
+        //实例化Gson的时候要指定时间格式，不然解析Json中的时间数据的时候要报错
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        //等待子线程拿到服务器数据
+        while (serverData == null) {
+
+        }
+        //反序列化,Json数据转对象
+        CourseInfo courseInfo = gson.fromJson(serverData, CourseInfo.class);
+        Log.d("CourseFragment", "onClick: " + serverData);
+        List<Course> courseList = courseInfo.getCourse();
+        for (int i=0; i<courseList.size(); i++) {
+            String teacherName = courseList.get(i).getRealname();
+            String courseName = courseList.get(i).getCourseName();
+            Integer week = courseList.get(i).getWeek();
+            Integer dayTimes = courseList.get(i).getDayTimes();
+            setCourseData(teacherName, courseName, week, dayTimes);
+        }
+        //显示完了就把上一次的数据清空，避免影响下一次的查询
+        serverData = null;
     }
 }

@@ -11,4 +11,5 @@
     <color name="colorGrayBlack">#808080</color>
     <color name="courseSelected">#88CFCC</color>
     <color name="colorBottom">#e6e6e6</color>
+    <color name="colorBg">#C0CEE8</color>
 </resources>

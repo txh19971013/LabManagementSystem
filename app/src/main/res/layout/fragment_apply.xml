@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".teacher.ApplyFragment">
+    tools:context=".teacher.ApplyFragment"
+    android:background="@color/colorBg"
+    android:orientation="vertical"
+    android:padding="20dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/apply_show"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ripple_btn"
+        android:text="查看申请记录"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="apply fragment" />
+        android:orientation="vertical"
+        android:gravity="center">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/apply_equipmentName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_edittext"
+            android:hint="请输入耗材名称"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/apply_apply"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ripple_btn"
+            android:text="申请"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

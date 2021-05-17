@@ -1,5 +1,7 @@
 package com.txh;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.txh.json.course.Course;
 import com.txh.json.course.CourseInfo;
@@ -28,6 +30,16 @@ public class ExampleUnitTest {
         Gson gson = new Gson();
         CourseInfo courseInfo = gson.fromJson(json, CourseInfo.class);
         List<Course> courseList = courseInfo.getCourse();
-        System.out.println(courseList.get(1).getCourseName());
+        for (int i=0; i<courseList.size(); i++) {
+            String teacherName = courseList.get(i).getRealname();
+            String courseName = courseList.get(i).getCourseName();
+            Integer week = courseList.get(i).getWeek();
+            Integer dayTimes = courseList.get(i).getDayTimes();
+            System.out.println(teacherName);
+            System.out.println(courseName);
+            System.out.println(week);
+            System.out.println(dayTimes);
+            System.out.println("\n");
+        }
     }
 }
