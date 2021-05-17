@@ -1,11 +1,10 @@
 package com.txh.json.course;
 
-import com.txh.json.course.Course;
-
 import java.util.List;
 
 import lombok.Data;
 import lombok.ToString;
+
 
 @Data
 @ToString
