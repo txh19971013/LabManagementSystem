@@ -96,7 +96,6 @@ public class CourseFragment extends Fragment {
                 }
                 //反序列化,Json数据转对象
                 CourseInfo courseInfo = gson.fromJson(serverData, CourseInfo.class);
-                Log.d("CourseFragment", "onClick: " + serverData);
                 List<Course> courseList = courseInfo.getCourse();
                 for (int i=0; i<courseList.size(); i++) {
                     String teacherName = courseList.get(i).getRealname();
@@ -105,6 +104,7 @@ public class CourseFragment extends Fragment {
                     Integer dayTimes = courseList.get(i).getDayTimes();
                     setCourseData(teacherName, courseName, week, dayTimes);
                 }
+                Log.d("CourseFragment", "onClick: " + "完成一次查询操作");
                 //显示完了就把上一次的数据清空，避免影响下一次的查询
                 serverData = null;
                 ToastUtil.showShortToast(context, "查询成功！");
@@ -376,7 +376,7 @@ public class CourseFragment extends Fragment {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {//请求结束，代表跟服务器通信成功，但不一定跟url通信成功，可能404
                 if (response.isSuccessful()) {//如果响应是成功的，才进行操作
                     serverData = response.body().string();
-                    Log.d("CourseFragment", "onResponse: " + serverData);
+                    Log.d("CourseFragment", "onResponse: " + "请求服务器数据的子线程执行完毕");
                 }
             }
         });
@@ -403,12 +403,13 @@ public class CourseFragment extends Fragment {
         //实例化Gson的时候要指定时间格式，不然解析Json中的时间数据的时候要报错
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         //等待子线程拿到服务器数据
+        Log.d("CourseFragment", "onClick: " + "进入循环");
         while (serverData == null) {
 
         }
+        Log.d("CourseFragment", "onClick: " + "循环结束");
         //反序列化,Json数据转对象
         CourseInfo courseInfo = gson.fromJson(serverData, CourseInfo.class);
-        Log.d("CourseFragment", "onClick: " + serverData);
         List<Course> courseList = courseInfo.getCourse();
         for (int i=0; i<courseList.size(); i++) {
             String teacherName = courseList.get(i).getRealname();
@@ -417,6 +418,7 @@ public class CourseFragment extends Fragment {
             Integer dayTimes = courseList.get(i).getDayTimes();
             setCourseData(teacherName, courseName, week, dayTimes);
         }
+        Log.d("CourseFragment", "onClick: " + "加载默认第一周101实验室的情况");
         //显示完了就把上一次的数据清空，避免影响下一次的查询
         serverData = null;
     }

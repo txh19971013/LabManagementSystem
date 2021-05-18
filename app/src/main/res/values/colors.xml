@@ -12,4 +12,7 @@
     <color name="courseSelected">#88CFCC</color>
     <color name="colorBottom">#e6e6e6</color>
     <color name="colorBg">#C0CEE8</color>
+    <color name="colorAccept">#78C06E</color>
+    <color name="colorRefuse">#FA5A5A</color>
+    <color name="colorReviewing">#FF8C4D</color>
 </resources>
