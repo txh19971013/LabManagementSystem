@@ -1,5 +1,6 @@
 package com.txh.teacher;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -44,7 +45,7 @@ public class ApplyFragment extends Fragment {
         apply_show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.vp2_teacher, ApplyHistoryFragment.newInstance()).commitAllowingStateLoss();
+                startActivity(new Intent(getActivity(), ApplyHistoryActivity.class));
             }
         });
         return rootView;
