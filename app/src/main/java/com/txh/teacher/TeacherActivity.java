@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.txh.R;
 import com.txh.UserFragment;
@@ -20,7 +23,9 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
 
     private LinearLayout bottom_course, bottom_apply, bottom_user;
     private ImageView bottom_iv_course, bottom_iv_apply, bottom_iv_user, bottom_iv_current;
-
+    private TextView bottom_tv_course, bottom_tv_apply, bottom_tv_user;
+    private TextView title_view;
+    private View inflate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +57,22 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
                     case 0:
                         bottom_iv_course.setSelected(true);
                         bottom_iv_current = bottom_iv_course;
+
+                        bottom_tv_apply.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_course.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         break;
                     case 1:
+                        bottom_tv_apply.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         bottom_iv_apply.setSelected(true);
                         bottom_iv_current = bottom_iv_apply;
                         break;
                     case 2:
+                        bottom_tv_apply.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#1297dd"));
                         bottom_iv_user.setSelected(true);
                         bottom_iv_current = bottom_iv_user;
                         break;
@@ -81,9 +96,15 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
         bottom_iv_apply = findViewById(R.id.bottom_iv_apply);
         bottom_iv_user = findViewById(R.id.bottom_iv_user);
 
+        bottom_tv_course = findViewById(R.id.bottom_tv_course);
+        bottom_tv_apply = findViewById(R.id.bottom_tv_apply);
+        bottom_tv_user = findViewById(R.id.bottom_tv_user);
+
         //初始化底部导航栏初始的选中状态
         bottom_iv_course.setSelected(true);
         bottom_iv_current = bottom_iv_course;
+        inflate = LayoutInflater.from(this).inflate(R.layout.title_layout_teacher, null);
+        title_view = findViewById(R.id.view_title_name);
     }
 
     /**
@@ -100,16 +121,29 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
                 //更新当前的按钮选中状态
                 bottom_iv_course.setSelected(true);
                 bottom_iv_current = bottom_iv_course;
+
+                bottom_tv_apply.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_course.setTextColor(Color.parseColor("#1297dd"));
+                bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
+                title_view.setText("教师排课系统");
                 break;
             case R.id.bottom_apply:
                 vp2_teacher.setCurrentItem(1);
                 bottom_iv_apply.setSelected(true);
                 bottom_iv_current = bottom_iv_apply;
+                bottom_tv_apply.setTextColor(Color.parseColor("#1297dd"));
+                bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
+                title_view.setText("耗材管理系统");
                 break;
             case R.id.bottom_user:
                 vp2_teacher.setCurrentItem(2);
                 bottom_iv_user.setSelected(true);
                 bottom_iv_current = bottom_iv_user;
+                bottom_tv_apply.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_user.setTextColor(Color.parseColor("#1297dd"));
+                title_view.setText("个人中心");
                 break;
         }
     }

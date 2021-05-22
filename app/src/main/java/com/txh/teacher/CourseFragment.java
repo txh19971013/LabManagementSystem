@@ -648,6 +648,7 @@ public class CourseFragment extends Fragment {
         courseDialog_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myCourseDialog.dismiss();
                 myCourseDialog.cancel();
             }
         });
@@ -656,6 +657,7 @@ public class CourseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 postSaveCourse(textView, courseDialog_courseName.getText().toString());
+                myCourseDialog.dismiss();
             }
         });
     }

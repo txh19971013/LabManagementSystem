@@ -22,6 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="#FFAD33"
             android:hint="用户名"
             android:background="@drawable/bg_username"
@@ -38,24 +40,35 @@
             android:textSize="16sp"
             android:textColor="#FFAD33"
             android:hint="密码"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:inputType="textPassword"
             android:background="@drawable/bg_username"
             android:drawableLeft="@drawable/icon_password"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
-            <View
+            <TextView
+                android:text="用户身份："
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
                 android:layout_width="0dp"
+                android:background="@color/colorBg"
                 android:layout_height="match_parent"
                 android:layout_weight="0.4"/>
             <Spinner
+                android:background="@color/teal_700"
                 android:id="@+id/sp_userType"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -68,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:text="登录"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/selector_orange"
             android:textColor="#FFFFFF"

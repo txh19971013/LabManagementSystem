@@ -21,9 +21,11 @@
             android:background="@drawable/selector_course"/>
 
         <TextView
+            android:id="@+id/bottom_tv_course"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="排课"
+            android:textColor="#1297dd"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -43,9 +45,11 @@
             android:background="@drawable/selector_apply"/>
 
         <TextView
+            android:id="@+id/bottom_tv_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="耗材申购"
+            android:textColor="@color/black_99"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -65,9 +69,11 @@
             android:background="@drawable/selector_user"/>
 
         <TextView
+            android:id="@+id/bottom_tv_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的"
+            android:textColor="@color/black_99"
             android:textSize="16sp"/>
 
     </LinearLayout>

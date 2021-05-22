@@ -3,70 +3,161 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".UserFragment"
     android:background="@color/white">
+    <RelativeLayout
+        android:background="@drawable/user_bg"
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/header"/>
+    </RelativeLayout>
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/head"/>
+
 
     <LinearLayout
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_margin="15dp"
         android:layout_marginTop="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:drawableLeft="@mipmap/p_name"
+            android:gravity="center"
             android:text="姓名："
-            android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/colorGrayBlack"
+            android:textSize="20sp" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="孔子"
-            android:textSize="20sp"
             android:gravity="center"
+            android:layout_weight="0.6"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
-
+    <View
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
     <LinearLayout
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_margin="15dp"
         android:layout_marginTop="20dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="学院："
+            android:gravity="center"
             android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:layout_weight="0.4"
+            android:drawableLeft="@mipmap/p_school"
+            android:textColor="@color/colorGrayBlack"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="信息学院"
-            android:textSize="20sp"
+            android:text="信息技术学院"
             android:gravity="center"
+            android:layout_weight="0.6"
+            android:textSize="20sp"
             android:textColor="@color/black"/>
 
     </LinearLayout>
+    <View
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:layout_marginTop="20dp">
 
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="软件版本："
+            android:gravity="center"
+            android:drawableLeft="@mipmap/p_version"
+            android:textSize="20sp"
+            android:layout_weight="0.4"
+            android:textColor="@color/colorGrayBlack"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="1.0.1"
+            android:gravity="center"
+            android:layout_weight="0.6"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+    <View
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+        android:layout_margin="15dp"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="个人说明："
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_weight="0.4"
+        android:drawableLeft="@mipmap/p_edit"
+        android:textColor="@color/colorGrayBlack"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="用代码改变世界"
+        android:gravity="center"
+        android:layout_weight="0.6"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
+    <View
+        android:background="@color/colorBg"
+        android:layout_width="match_parent"
+        android:layout_height="2dp">
+    </View>
     <Button
         android:id="@+id/user_logout"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/ripple_logout"
         android:text="注销"
+        android:layout_margin="30dp"
         android:textColor="@color/black"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
