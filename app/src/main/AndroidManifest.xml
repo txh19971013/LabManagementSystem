@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".teacher.ApplyHistoryActivity"></activity>
+        <activity android:name=".teacher.ApplyDetailActivity"></activity>
+        <activity android:name=".teacher.AddApplyActivity" />
         <activity android:name=".teacher.TeacherActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

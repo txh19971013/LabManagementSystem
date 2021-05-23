@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class ApplyHistory {
+public class ApplyDetail {
     /**
      * 该条记录的id
      */
@@ -17,9 +17,37 @@ public class ApplyHistory {
      */
     private long teacherId;
     /**
+     * 商品名称
+     */
+    private String productName;
+    /**
+     * 商品编号
+     */
+    private String productNum;
+    /**
      * 器材名称
      */
     private String name;
+    /**
+     * 器材型号
+     */
+    private String type;
+    /**
+     * 商品数量
+     */
+    private Integer count;
+    /**
+     * 商品参考价格
+     */
+    private Double price;
+    /**
+     * 器材详情
+     */
+    private String detail;
+    /**
+     * 总金额
+     */
+    private Double totalMoney;
     /**
      * 创建时间
      */

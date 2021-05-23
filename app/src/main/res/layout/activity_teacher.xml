@@ -6,14 +6,14 @@
     android:orientation="vertical"
     tools:context=".teacher.TeacherActivity">
     <include
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/main_title"
         layout="@layout/title_layout_teacher" />
-    <View
-        android:background="@color/colorBottom"
-        android:layout_width="match_parent"
-        android:layout_height="1dp">
-    </View>
+<!--    <View-->
+<!--        android:background="@color/colorBottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp">-->
+<!--    </View>-->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp2_teacher"
         android:layout_width="match_parent"

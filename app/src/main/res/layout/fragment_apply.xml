@@ -4,51 +4,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".teacher.ApplyFragment"
-    android:background="@color/colorBg"
-    android:orientation="vertical"
-    android:padding="20dp">
-
-    <Button
-        android:id="@+id/apply_show"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@drawable/ripple_btn"
-        android:text="查看申请记录"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"/>
+    android:background="@color/QQbgColor"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/QQTopColor">
 
-        <EditText
-            android:id="@+id/apply_equipmentName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/shape_edittext"
-            android:hint="请输入耗材名称"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textSize="20sp"
-            android:gravity="center"/>
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
 
-        <Button
-            android:id="@+id/apply_apply"
-            android:layout_width="160dp"
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="40dp"
-            android:background="@drawable/ripple_btn"
-            android:text="申请"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="申购历史"
             android:gravity="center"
-            android:layout_marginTop="20dp"/>
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:id="@+id/apply_add"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_add_36"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorGrayBlack"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/QQbgColor">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="耗材名称"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayBlack"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="申请时间"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGrayBlack"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="申请状态"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorGrayBlack"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/apply_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGrayBlack"/>
 
 </LinearLayout>

@@ -68,7 +68,7 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
                         bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         bottom_iv_apply.setSelected(true);
                         bottom_iv_current = bottom_iv_apply;
-                        title_view.setText("耗材管理系统");
+                        title_view.setText("耗材申购系统");
                         break;
                     case 2:
                         bottom_tv_apply.setTextColor(Color.parseColor("#99000000"));
@@ -136,7 +136,7 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
                 bottom_tv_apply.setTextColor(Color.parseColor("#1297dd"));
                 bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
                 bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
-                title_view.setText("耗材管理系统");
+                title_view.setText("耗材申购系统");
                 break;
             case R.id.bottom_user:
                 vp2_teacher.setCurrentItem(2);

@@ -17,4 +17,7 @@
     <color name="colorRefuse">#FA5A5A</color>
     <color name="colorReviewing">#FF8C4D</color>
     <color name="cselectTextColor">#1297DD</color>
+    <color name="QQbgColor">#F5F6FA</color>
+    <color name="QQTopColor">#00B3FE</color>
+    <color name="colorApply">#CB3831</color>
 </resources>
