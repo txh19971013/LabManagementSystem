@@ -77,6 +77,9 @@ public class AddApplyActivity extends AppCompatActivity {
         addApply_back = findViewById(R.id.addApply_back);
     }
 
+    /**
+     * 向服务器发起post请求，完成提交申请的操作
+     */
     private void postSubmitApply() {
         SubmitApply submitApply = new SubmitApply();
         submitApply.setTeacherId(MyApplication.teacherId);

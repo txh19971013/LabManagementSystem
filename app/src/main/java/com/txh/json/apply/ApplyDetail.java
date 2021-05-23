@@ -56,44 +56,4 @@ public class ApplyDetail {
      * 状态(0-审核中， 1-已通过， 2-已拒绝)
      */
     private Integer buyStatus;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(long teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getBuyStatus() {
-        return buyStatus;
-    }
-
-    public void setBuyStatus(Integer buyStatus) {
-        this.buyStatus = buyStatus;
-    }
 }

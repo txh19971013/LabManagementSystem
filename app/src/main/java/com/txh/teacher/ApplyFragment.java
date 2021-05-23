@@ -5,20 +5,37 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.txh.MyApplication;
 import com.txh.R;
 import com.txh.json.apply.ApplyDetail;
+import com.txh.json.apply.ApplyInfo;
+import com.txh.utils.ToastUtil;
+import com.txh.utils.UrlUtil;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ApplyFragment extends Fragment {
 
@@ -27,19 +44,6 @@ public class ApplyFragment extends Fragment {
 
     private ImageView apply_add;
     private RecyclerView apply_list;
-
-    public interface setDetailData {
-        void setProductName(String productName);
-        void setProductNum(String productNum);
-        void setName(String name);
-        void setType(String type);
-        void setCount(Integer count);
-        void setPrice(Double price);
-        void setDetail(String detail);
-        void setTotalMoney(Double totalMoney);
-        void setCreateTime(Date createTime);
-        void setBuyStatus(Integer buyStatus);
-    }
 
     public ApplyFragment() {
         // Required empty public constructor
@@ -64,6 +68,8 @@ public class ApplyFragment extends Fragment {
             rootView = inflater.inflate(R.layout.fragment_apply, container, false);
         }
         initPager();
+        //渲染界面
+        getApplyHistory(MyApplication.teacherId);
         return rootView;
     }
 
@@ -76,31 +82,75 @@ public class ApplyFragment extends Fragment {
         apply_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //点加号跳转到提交申请界面
                 startActivity(new Intent(context, AddApplyActivity.class));
             }
         });
-        //模拟数据
-        List<ApplyDetail> applyHistoryList = new ArrayList<>();
-        ApplyDetail applyHistory = new ApplyDetail();
-        applyHistory.setName("天平");
-        applyHistory.setCreateTime(new Date());
-        applyHistory.setBuyStatus(0);
-        applyHistoryList.add(applyHistory);
-        //设置布局管理器
-        apply_list.setLayoutManager(new LinearLayoutManager(context));
-        //设置Adapter
-        ApplyHistoryAdapter applyHistoryAdapter = new ApplyHistoryAdapter(applyHistoryList, context);
-        apply_list.setAdapter(applyHistoryAdapter);
+    }
 
+    /**
+     * 获取服务器数据，并渲染到界面上
+     * @param teacherId
+     */
+    private void getApplyHistory(Long teacherId) {
+        //实例化OkHttp的请求器
+        OkHttpClient okHttpClient = new OkHttpClient();
+        String url = UrlUtil.url +  "/equipment/getApplyById?teacherId=1";
+        //实例化请求对象，get请求一般是不上传参数的，get请求要上传参数的话就在get后面写?key=value，多个参数用&分隔
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        //把request请求对象传递给okHttpClient请求器，就可以得到一个准备好进行请求的Call对象
+        Call call = okHttpClient.newCall(request);
+        //异步请求，调用enqueue方法
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {//请求失败
+                showMessage("网络异常！");
+            }
 
-//        String productName = applyHistoryList.get(position).getProductName();
-//        String productNum = applyHistoryList.get(position).getProductNum();
-//        String name = applyHistoryList.get(position).getName();
-//        String type = applyHistoryList.get(position).getType();
-//        Integer count = applyHistoryList.get(position).getCount();
-//        double price = applyHistoryList.get(position).getPrice();
-//        String detail = applyHistoryList.get(position).getDetail();
-//        double totalMoney = applyHistoryList.get(position).getTotalMoney();
-//        Date createTime = applyHistoryList.get(position).getCreateTime();
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {//请求结束，代表跟服务器通信成功，但不一定跟url通信成功，可能404
+                if (response.isSuccessful()) {//如果响应是成功的，才进行操作
+                    String result = response.body().string();
+                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                    ApplyInfo applyInfo = gson.fromJson(result, ApplyInfo.class);
+                    List<ApplyDetail> applyDetailList = applyInfo.getTheTeacherApply();
+                    setDataToRecyclerView(applyDetailList);
+                }
+            }
+        });
+    }
+
+    /**
+     * Toast出服务器返回的msg
+     *
+     * @param msg
+     */
+    private void showMessage(String msg) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtil.showShortToast(context, msg);
+            }
+        });
+    }
+
+    /**
+     * 给RecyclerView填充数据
+     *
+     * @param applyDetailList 申购记录的列表
+     */
+    private void setDataToRecyclerView(List<ApplyDetail> applyDetailList) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //设置布局管理器
+                apply_list.setLayoutManager(new LinearLayoutManager(context));
+                //设置Adapter
+                ApplyHistoryAdapter applyHistoryAdapter = new ApplyHistoryAdapter(applyDetailList, context);
+                apply_list.setAdapter(applyHistoryAdapter);
+            }
+        });
     }
 }

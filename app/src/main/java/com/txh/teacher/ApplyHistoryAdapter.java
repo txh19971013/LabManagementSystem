@@ -3,6 +3,8 @@ package com.txh.teacher;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +25,17 @@ import java.util.List;
 public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapter.ApplyHistoryHolder> {
 
     //需要接收一个申请记录的列表
-    List<ApplyDetail> applyHistoryList = new ArrayList<>();
+    List<ApplyDetail> applyDetailList = new ArrayList<>();
 
     private Context context;
 
     /**
      * 构造方法，从外部接收参数
      *
-     * @param applyHistoryList 申请记录的列表
+     * @param applyDetailList 申请记录的列表
      */
-    ApplyHistoryAdapter(List<ApplyDetail> applyHistoryList, Context context) {
-        this.applyHistoryList = applyHistoryList;
+    ApplyHistoryAdapter(List<ApplyDetail> applyDetailList, Context context) {
+        this.applyDetailList = applyDetailList;
         this.context = context;
     }
 
@@ -46,9 +48,9 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ApplyHistoryHolder holder, int position) {
-        String name = applyHistoryList.get(position).getName();
-        String createTime = applyHistoryList.get(position).getCreateTime().toString();
-        Integer status = applyHistoryList.get(position).getBuyStatus();
+        String name = applyDetailList.get(position).getName();
+        String createTime = applyDetailList.get(position).getCreateTime().toString();
+        Integer status = applyDetailList.get(position).getBuyStatus();
         //渲染item中的组件
         holder.applyhistory_name.setText(name);
         holder.applyhistory_createtime.setText(createTime);
@@ -74,15 +76,30 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //用Intent和Bundle给下一个Activity传数据
+                Intent intent = new Intent(context, ApplyDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("productName", applyDetailList.get(position).getProductName());
+                bundle.putString("productNum", applyDetailList.get(position).getProductNum());
+                bundle.putString("name", applyDetailList.get(position).getName());
+                bundle.putString("type", applyDetailList.get(position).getType());
+                bundle.putString("count", applyDetailList.get(position).getCount().toString());
+                bundle.putString("price", applyDetailList.get(position).getPrice().toString());
+                bundle.putString("detail", applyDetailList.get(position).getDetail());
+                bundle.putString("totalMoney", applyDetailList.get(position).getTotalMoney().toString());
+                bundle.putString("createTime", applyDetailList.get(position).getCreateTime().toString());
+                Log.d("tangxuhui", "onClick: " + applyDetailList.get(position).getCreateTime());
+                bundle.putInt("buyStatus", applyDetailList.get(position).getBuyStatus());
+                intent.putExtras(bundle);
                 //跳转到申购历史的详情页面
-                context.startActivity(new Intent(context, ApplyDetailActivity.class));
+                context.startActivity(intent);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return applyHistoryList.size();
+        return applyDetailList.size();
     }
 
     class ApplyHistoryHolder extends RecyclerView.ViewHolder {

@@ -9,7 +9,7 @@ import com.txh.R;
 
 import java.util.Date;
 
-public class ApplyDetailActivity extends AppCompatActivity implements ApplyFragment.setDetailData {
+public class ApplyDetailActivity extends AppCompatActivity{
 
     private TextView applyDetail_productName;
     private TextView applyDetail_productNum;
@@ -27,68 +27,19 @@ public class ApplyDetailActivity extends AppCompatActivity implements ApplyFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_detail);
 
-    }
-
-    private void init() {
-        applyDetail_productName = findViewById(R.id.applyDetail_productName);
-        applyDetail_productNum = findViewById(R.id.applyDetail_productNum);
-        applyDetail_name = findViewById(R.id.applyDetail_name);
-        applyDetail_type = findViewById(R.id.applyDetail_type);
-        applyDetail_count = findViewById(R.id.applyDetail_count);
-        applyDetail_price = findViewById(R.id.applyDetail_price);
-        applyDetail_detail = findViewById(R.id.applyDetail_detail);
-        applyDetail_totalMoney = findViewById(R.id.applyDetail_totalMoney);
-        applyDetail_createTime = findViewById(R.id.applyDetail_createTime);
-        applyDetail_buyStatus = findViewById(R.id.applyDetail_buyStatus);
-    }
-
-    @Override
-    public void setProductName(String productName) {
-        applyDetail_productName.setText(productName);
-    }
-
-    @Override
-    public void setProductNum(String productNum) {
-        applyDetail_productNum.setText(productNum);
-    }
-
-    @Override
-    public void setName(String name) {
-        applyDetail_name.setText(name);
-    }
-
-    @Override
-    public void setType(String type) {
-        applyDetail_type.setText(type);
-    }
-
-    @Override
-    public void setCount(Integer count) {
-        applyDetail_count.setText(count);
-    }
-
-    @Override
-    public void setPrice(Double price) {
-        applyDetail_price.setText(price.toString());
-    }
-
-    @Override
-    public void setDetail(String detail) {
-        applyDetail_detail.setText(detail);
-    }
-
-    @Override
-    public void setTotalMoney(Double totalMoney) {
-        applyDetail_totalMoney.setText(totalMoney.toString());
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        applyDetail_createTime.setText(createTime.toString());
-    }
-
-    @Override
-    public void setBuyStatus(Integer buyStatus) {
+        init();
+        //接收Intent和Bundle传过来的数据并渲染界面
+        Bundle bundle = getIntent().getExtras();
+        applyDetail_productName.setText(bundle.getString("productName"));
+        applyDetail_productNum.setText(bundle.getString("productNum"));
+        applyDetail_name.setText(bundle.getString("name"));
+        applyDetail_type.setText(bundle.getString("type"));
+        applyDetail_count.setText(bundle.getString("count"));
+        applyDetail_price.setText(bundle.getString("price"));
+        applyDetail_detail.setText(bundle.getString("detail"));
+        applyDetail_totalMoney.setText(bundle.getString("totalMoney"));
+        applyDetail_createTime.setText(bundle.getString("createTime"));
+        Integer buyStatus = bundle.getInt("buyStatus");
         switch (buyStatus) {
             case 0:
                 applyDetail_buyStatus.setText("审核中……");
@@ -103,5 +54,19 @@ public class ApplyDetailActivity extends AppCompatActivity implements ApplyFragm
                 applyDetail_buyStatus.setBackgroundResource(R.drawable.shape_refuse_corner_10dp);
                 break;
         }
+
+    }
+
+    private void init() {
+        applyDetail_productName = findViewById(R.id.applyDetail_productName);
+        applyDetail_productNum = findViewById(R.id.applyDetail_productNum);
+        applyDetail_name = findViewById(R.id.applyDetail_name);
+        applyDetail_type = findViewById(R.id.applyDetail_type);
+        applyDetail_count = findViewById(R.id.applyDetail_count);
+        applyDetail_price = findViewById(R.id.applyDetail_price);
+        applyDetail_detail = findViewById(R.id.applyDetail_detail);
+        applyDetail_totalMoney = findViewById(R.id.applyDetail_totalMoney);
+        applyDetail_createTime = findViewById(R.id.applyDetail_createTime);
+        applyDetail_buyStatus = findViewById(R.id.applyDetail_buyStatus);
     }
 }
