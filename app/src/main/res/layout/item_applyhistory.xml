@@ -16,6 +16,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:gravity="center"
             android:textColor="@color/black"/>
 
@@ -53,7 +55,7 @@
                 android:id="@+id/applyhistory_status_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="审核中……"
+                android:text="审核中"
                 android:textColor="@color/colorReviewing"/>
 
         </LinearLayout>

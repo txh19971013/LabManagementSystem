@@ -3,17 +3,14 @@ package com.txh.teacher;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,8 +24,6 @@ import com.txh.utils.UrlUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
@@ -43,6 +38,7 @@ public class ApplyFragment extends Fragment {
     private Context context;
 
     private ImageView apply_add;
+    private ImageView apply_refresh;
     private RecyclerView apply_list;
 
     public ApplyFragment() {
@@ -79,11 +75,19 @@ public class ApplyFragment extends Fragment {
     private void initPager() {
         apply_add = rootView.findViewById(R.id.apply_add);
         apply_list = rootView.findViewById(R.id.apply_list);
+        apply_refresh = rootView.findViewById(R.id.apply_refresh);
         apply_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //点加号跳转到提交申请界面
                 startActivity(new Intent(context, AddApplyActivity.class));
+            }
+        });
+        apply_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getApplyHistory(MyApplication.teacherId);
+                showMessage("刷新成功！");
             }
         });
     }

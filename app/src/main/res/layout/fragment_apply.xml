@@ -9,13 +9,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:orientation="horizontal"
-        android:background="@color/QQTopColor">
+        android:background="@color/QQTopColor"
+        android:gravity="center_vertical">
 
-        <View
+        <ImageView
+            android:id="@+id/apply_refresh"
             android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:src="@drawable/ic_baseline_refresh_36"/>
 
         <TextView
             android:layout_width="0dp"

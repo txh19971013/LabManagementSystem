@@ -5,7 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".UserFragment"
-    android:background="@color/white">
+    android:background="@color/QQbgColor">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@color/QQTopColor"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:text="个人中心"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:background="@drawable/user_bg"
         android:layout_width="match_parent"
@@ -40,7 +59,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="孔子"
+            android:text="王安石"
             android:gravity="center"
             android:layout_weight="0.6"
             android:textSize="20sp"
@@ -73,7 +92,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="信息技术学院"
+            android:text="信息学院"
             android:gravity="center"
             android:layout_weight="0.6"
             android:textSize="20sp"
@@ -139,7 +158,7 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="用代码改变世界"
+        android:text="Write the Code. Change the World."
         android:gravity="center"
         android:layout_weight="0.6"
         android:textSize="20sp"

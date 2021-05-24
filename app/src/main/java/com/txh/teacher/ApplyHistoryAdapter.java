@@ -19,6 +19,7 @@ import com.txh.json.apply.ApplyDetail;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,8 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
     @Override
     public void onBindViewHolder(@NonNull @NotNull ApplyHistoryHolder holder, int position) {
         String name = applyDetailList.get(position).getName();
-        String createTime = applyDetailList.get(position).getCreateTime().toString();
+        //用SimpleDateFormat做了时间格式的处理
+        String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(applyDetailList.get(position).getCreateTime());
         Integer status = applyDetailList.get(position).getBuyStatus();
         //渲染item中的组件
         holder.applyhistory_name.setText(name);
@@ -57,7 +59,7 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
         switch (status) {
             case 0:
                 holder.applyhistory_status_iv.setImageResource(R.drawable.applyhistory_reviewing);
-                holder.applyhistory_status_tv.setText("审核中……");
+                holder.applyhistory_status_tv.setText("审核中");
                 holder.applyhistory_status_tv.setTextColor(Color.parseColor("#FF8C4D"));
                 break;
             case 1:
@@ -87,7 +89,8 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
                 bundle.putString("price", applyDetailList.get(position).getPrice().toString());
                 bundle.putString("detail", applyDetailList.get(position).getDetail());
                 bundle.putString("totalMoney", applyDetailList.get(position).getTotalMoney().toString());
-                bundle.putString("createTime", applyDetailList.get(position).getCreateTime().toString());
+                //用SimpleDateFormat做了时间格式的处理
+                bundle.putString("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(applyDetailList.get(position).getCreateTime()));
                 Log.d("tangxuhui", "onClick: " + applyDetailList.get(position).getCreateTime());
                 bundle.putInt("buyStatus", applyDetailList.get(position).getBuyStatus());
                 intent.putExtras(bundle);

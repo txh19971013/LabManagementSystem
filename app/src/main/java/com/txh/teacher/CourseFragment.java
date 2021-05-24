@@ -1,13 +1,8 @@
 package com.txh.teacher;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -102,7 +100,6 @@ public class CourseFragment extends Fragment {
                 Integer weekNum = getWeekNum();
                 String classroomName = getClassroomName();
                 getServerDataAndToSet(weekNum, classroomName);
-                Log.d("CourseFragment", "onClick: " + "完成一次查询操作");
                 ToastUtil.showShortToast(context, "查询成功！");
             }
         });
@@ -371,7 +368,7 @@ public class CourseFragment extends Fragment {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {//请求失败
-                Log.d("CourseFragment", "onClick: " + e);
+                showMessage("网络异常！");
             }
 
             @Override
@@ -391,6 +388,8 @@ public class CourseFragment extends Fragment {
                         //填充
                         setCourseData(teacherName, courseName, week, dayTimes);
                     }
+                    //显示出成功或失败的提示信息
+                   showMessage(courseInfo.getMsg());
                 }
             }
         });

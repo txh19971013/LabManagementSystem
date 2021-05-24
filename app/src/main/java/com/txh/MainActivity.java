@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.txh.admin.AdminActivity;
 import com.txh.teacher.TeacherActivity;
 import com.txh.utils.ToastUtil;
 
@@ -29,7 +30,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends Activity implements OnClickListener {
-	private String[] idCard = new String[]{"管理员","教师","学生"};
+
+	private String[] idCard = new String[]{"管理员","教师"};
 	private TextView mBtnLogin;
 	
 	private View progress;
@@ -40,6 +42,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private LinearLayout mName, mPsw;
 	private Spinner main_idCard;
+	Integer userType = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,10 +60,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		mName = (LinearLayout) findViewById(R.id.input_layout_name);
 		mPsw = (LinearLayout) findViewById(R.id.input_layout_psw);
 		main_idCard = findViewById(R.id.main_idCard);
+
 		mBtnLogin.setOnClickListener(this);
 		main_idCard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				userType = i;
 				Toast.makeText(MainActivity.this, ""+idCard[i], Toast.LENGTH_SHORT).show();
 			}
 
@@ -146,7 +152,11 @@ public class MainActivity extends Activity implements OnClickListener {
 								ToastUtil.showShortToast(MainActivity.this,"登陆成功");
 							}
 						});
-						startActivity(new Intent(MainActivity.this, TeacherActivity.class));
+						if (userType == 0) {
+							startActivity(new Intent(MainActivity.this, AdminActivity.class));
+						} else {
+							startActivity(new Intent(MainActivity.this, TeacherActivity.class));
+						}
 					}
 				}, 1000);
 

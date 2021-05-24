@@ -3,6 +3,7 @@ package com.txh.teacher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,9 +88,21 @@ public class AddApplyActivity extends AppCompatActivity {
         submitApply.setProductNum(addApply_productNum.getText().toString());
         submitApply.setName(addApply_name.getText().toString());
         submitApply.setType(addApply_type.getText().toString());
+        if (addApply_count.getText().toString().isEmpty()) {
+            showMessage("申购数量不能为空");
+            return;
+        }
         submitApply.setCount(Integer.parseInt(addApply_count.getText().toString()));
+        if (addApply_price.getText().toString().isEmpty()) {
+            showMessage("参考单价不能为空");
+            return;
+        }
         submitApply.setPrice(Double.parseDouble(addApply_price.getText().toString()));
         submitApply.setDetail(addApply_detail.getText().toString());
+        if (addApply_totalMoney.getText().toString().isEmpty()) {
+            showMessage("总金额不能为空");
+            return;
+        }
         submitApply.setTotalMoney(Double.parseDouble(addApply_totalMoney.getText().toString()));
         Gson gson = new Gson();
         String json = gson.toJson(submitApply);

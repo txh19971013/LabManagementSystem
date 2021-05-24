@@ -7,7 +7,7 @@ public class SubmitApply {
     /**
      * 创建这条申请记录的教师的id
      */
-    private long teacherId;
+    private Long teacherId;
     /**
      * 商品名称
      */
@@ -31,7 +31,7 @@ public class SubmitApply {
     /**
      * 商品参考价格
      */
-    private double price;
+    private Double price;
     /**
      * 器材详情
      */
@@ -39,5 +39,5 @@ public class SubmitApply {
     /**
      * 总金额
      */
-    private double totalMoney;
+    private Double totalMoney;
 }

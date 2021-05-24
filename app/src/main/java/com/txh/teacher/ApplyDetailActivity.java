@@ -3,6 +3,8 @@ package com.txh.teacher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.txh.R;
@@ -21,6 +23,7 @@ public class ApplyDetailActivity extends AppCompatActivity{
     private TextView applyDetail_totalMoney;
     private TextView applyDetail_createTime;
     private TextView applyDetail_buyStatus;
+    private LinearLayout applyDetail_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,14 @@ public class ApplyDetailActivity extends AppCompatActivity{
                 break;
         }
 
+        //返回的点击事件
+        applyDetail_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ApplyDetailActivity.super.onBackPressed();
+            }
+        });
+
     }
 
     private void init() {
@@ -68,5 +79,6 @@ public class ApplyDetailActivity extends AppCompatActivity{
         applyDetail_totalMoney = findViewById(R.id.applyDetail_totalMoney);
         applyDetail_createTime = findViewById(R.id.applyDetail_createTime);
         applyDetail_buyStatus = findViewById(R.id.applyDetail_buyStatus);
+        applyDetail_back = findViewById(R.id.applyDetail_back);
     }
 }
