@@ -1,7 +1,5 @@
 package com.txh.json.apply;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -13,11 +11,15 @@ public class ApplyDetail {
     /**
      * 该条记录的id
      */
-    private long id;
+    private Long id;
+    /**
+     * 创建这条申请记录的教师的真实姓名
+     */
+    private String realname;
     /**
      * 创建这条申请记录的教师的id
      */
-    private long teacherId;
+    private Long teacherId;
     /**
      * 商品名称
      */

@@ -119,7 +119,7 @@ public class ApplyFragment extends Fragment {
                     String result = response.body().string();
                     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                     ApplyInfo applyInfo = gson.fromJson(result, ApplyInfo.class);
-                    List<ApplyDetail> applyDetailList = applyInfo.getTheTeacherApply();
+                    List<ApplyDetail> applyDetailList = applyInfo.getApply();
                     setDataToRecyclerView(applyDetailList);
                 }
             }

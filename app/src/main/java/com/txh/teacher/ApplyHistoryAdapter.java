@@ -40,6 +40,16 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
         this.context = context;
     }
 
+    /**
+     * 创建ViewHolder时要展示什么数据？所以这个方法返回值是一个ViewHolder，告诉系统要展示什么数据
+     * 而我们要展示的东西是一个xml文件：item_viewpager2.xml，不是一个Java类！
+     * 所以我们要解析xml文件：
+     * 用LayoutInflater.from(parent.getContext())这个解析器来解析item的xml
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @NotNull
     @Override
@@ -91,7 +101,6 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
                 bundle.putString("totalMoney", applyDetailList.get(position).getTotalMoney().toString());
                 //用SimpleDateFormat做了时间格式的处理
                 bundle.putString("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(applyDetailList.get(position).getCreateTime()));
-                Log.d("tangxuhui", "onClick: " + applyDetailList.get(position).getCreateTime());
                 bundle.putInt("buyStatus", applyDetailList.get(position).getBuyStatus());
                 intent.putExtras(bundle);
                 //跳转到申购历史的详情页面
@@ -105,6 +114,9 @@ public class ApplyHistoryAdapter extends RecyclerView.Adapter<ApplyHistoryAdapte
         return applyDetailList.size();
     }
 
+    /**
+     * 自己封装一个ViewHolder内部类，用来解析item的xml文件
+     */
     class ApplyHistoryHolder extends RecyclerView.ViewHolder {
 
         TextView applyhistory_name, applyhistory_createtime, applyhistory_status_tv;

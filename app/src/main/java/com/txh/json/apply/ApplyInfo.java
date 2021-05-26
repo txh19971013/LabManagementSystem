@@ -11,5 +11,5 @@ import lombok.ToString;
 public class ApplyInfo {
     private String msg;
     private Integer code;
-    private List<ApplyDetail> theTeacherApply;
+    private List<ApplyDetail> apply;
 }

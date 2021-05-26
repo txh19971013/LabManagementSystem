@@ -637,18 +637,17 @@ public class CourseFragment extends Fragment {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_dialog_save_course, null);
         //实例化自定义Dialog
         myCourseDialog = new MyCourseDialog(context);
+        //设置自定义Dialog的视图
         myCourseDialog.setContentView(view);
         myCourseDialog.setCancelable(false);
         myCourseDialog.show();
         EditText courseDialog_courseName = view.findViewById(R.id.courseDialog_courseName);
         Button courseDialog_cancel = view.findViewById(R.id.courseDialog_cancel);
-
         Button courseDialog_confirm = view.findViewById(R.id.courseDialog_confirm);
         courseDialog_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 myCourseDialog.dismiss();
-                myCourseDialog.cancel();
             }
         });
 
@@ -867,10 +866,10 @@ public class CourseFragment extends Fragment {
 
         /**
          * 自定义初始化方法，设置背景及宽高
-         * Dialog自己带有一个白色的空视图，自己添加的视图是显示在Dialog的视图之上
+         * 只要不设置setContentView，Dialog默认有一个白色的空视图，自己添加的视图是显示在Dialog的视图之上
          */
         private void init() {
-            //设置视图
+            //设置视图，这里不设置的话，就有一个空白的根视图
             //setContentView(R.layout.layout_dialog_save_course);
             //拿到Dialog的window
             Window dialogWindow = this.getWindow();
@@ -883,7 +882,7 @@ public class CourseFragment extends Fragment {
             //获取屏幕宽度，并设置width属性
             layoutParams.width = context.getResources().getDisplayMetrics().widthPixels;
             //获取屏幕高度，并设置height属性
-            layoutParams.height = context.getResources().getDisplayMetrics().heightPixels / 3;
+            layoutParams.height = context.getResources().getDisplayMetrics().heightPixels;
             //将WindowManager.LayoutParams中设置的参数应用到Dialog
             dialogWindow.setAttributes(layoutParams);
         }

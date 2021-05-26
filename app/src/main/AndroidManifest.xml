@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".admin.AdminActivity"></activity>
+        <activity android:name=".admin.CheckActivity"></activity>
+        <activity android:name=".admin.AdminActivity" />
         <activity android:name=".teacher.ApplyDetailActivity" />
         <activity android:name=".teacher.AddApplyActivity" />
         <activity android:name=".teacher.TeacherActivity" />
