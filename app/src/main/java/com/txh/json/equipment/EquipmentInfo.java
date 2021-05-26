@@ -1,15 +1,14 @@
-package com.txh.json.course;
+package com.txh.json.equipment;
 
 import java.util.List;
 
 import lombok.Data;
 import lombok.ToString;
 
-
 @Data
 @ToString
-public class CourseInfo {
+public class EquipmentInfo {
     private String msg;
     private Integer code;
-    private List<Course> course;
+    private List<Equipment> AllEquipment;
 }

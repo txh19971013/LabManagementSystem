@@ -20,9 +20,9 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
     private ViewPager2 vp2_admin;
 
-    private LinearLayout bottom_course, bottom_manage, bottom_user;
-    private ImageView bottom_iv_course, bottom_iv_manage, bottom_iv_user, bottom_iv_current;
-    private TextView bottom_tv_course, bottom_tv_manage, bottom_tv_user;
+    private LinearLayout bottom_course, bottom_manage, bottom_equipment, bottom_user;
+    private ImageView bottom_iv_course, bottom_iv_manage, bottom_iv_user, bottom_iv_equipment, bottom_iv_current;
+    private TextView bottom_tv_course, bottom_tv_manage, bottom_tv_equipment, bottom_tv_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         ArrayList<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(CourseFragment.newInstance());
         fragmentList.add(ManageFragment.newInstance());
+        fragmentList.add(EquipmentListFragment.newInstance());
         fragmentList.add(UserFragment.newInstance());
         //设置Adapter
         AdminFragmentPagerAdapter adminFragmentPagerAdapter = new AdminFragmentPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragmentList);
@@ -55,23 +56,38 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                     case 0:
                         bottom_iv_course.setSelected(true);
                         bottom_iv_current = bottom_iv_course;
-                        bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+
                         bottom_tv_course.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
                         bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         break;
                     case 1:
-                        bottom_tv_manage.setTextColor(Color.parseColor("#1297dd"));
-                        bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
-                        bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         bottom_iv_manage.setSelected(true);
                         bottom_iv_current = bottom_iv_manage;
+
+                        bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_manage.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                         break;
                     case 2:
-                        bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                        bottom_iv_equipment.setSelected(true);
+                        bottom_iv_current = bottom_iv_equipment;
+
                         bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
-                        bottom_tv_user.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_equipment.setTextColor(Color.parseColor("#1297dd"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
+                        break;
+                    case 3:
                         bottom_iv_user.setSelected(true);
                         bottom_iv_current = bottom_iv_user;
+
+                        bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
+                        bottom_tv_user.setTextColor(Color.parseColor("#1297dd"));
                         break;
                 }
             }
@@ -86,15 +102,20 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         bottom_manage = findViewById(R.id.bottom_manage);
         bottom_manage.setOnClickListener(this);
 
+        bottom_equipment = findViewById(R.id.bottom_equipment);
+        bottom_equipment.setOnClickListener(this);
+
         bottom_user = findViewById(R.id.bottom_user);
         bottom_user.setOnClickListener(this);
 
         bottom_iv_course = findViewById(R.id.bottom_iv_course);
         bottom_iv_manage = findViewById(R.id.bottom_iv_manage);
+        bottom_iv_equipment = findViewById(R.id.bottom_iv_equipment);
         bottom_iv_user = findViewById(R.id.bottom_iv_user);
 
         bottom_tv_course = findViewById(R.id.bottom_tv_course);
         bottom_tv_manage = findViewById(R.id.bottom_tv_manage);
+        bottom_tv_equipment = findViewById(R.id.bottom_tv_equipment);
         bottom_tv_user = findViewById(R.id.bottom_tv_user);
 
         //初始化底部导航栏初始的选中状态
@@ -117,24 +138,39 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 bottom_iv_course.setSelected(true);
                 bottom_iv_current = bottom_iv_course;
 
-                bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
                 bottom_tv_course.setTextColor(Color.parseColor("#1297dd"));
+                bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
                 bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                 break;
             case R.id.bottom_manage:
                 vp2_admin.setCurrentItem(1);
                 bottom_iv_manage.setSelected(true);
                 bottom_iv_current = bottom_iv_manage;
-                bottom_tv_manage.setTextColor(Color.parseColor("#1297dd"));
+
                 bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_manage.setTextColor(Color.parseColor("#1297dd"));
+                bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
+                break;
+            case R.id.bottom_equipment:
+                vp2_admin.setCurrentItem(2);
+                bottom_iv_equipment.setSelected(true);
+                bottom_iv_current = bottom_iv_equipment;
+
+                bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_equipment.setTextColor(Color.parseColor("#1297dd"));
                 bottom_tv_user.setTextColor(Color.parseColor("#99000000"));
                 break;
             case R.id.bottom_user:
-                vp2_admin.setCurrentItem(2);
+                vp2_admin.setCurrentItem(3);
                 bottom_iv_user.setSelected(true);
                 bottom_iv_current = bottom_iv_user;
-                bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+
                 bottom_tv_course.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_manage.setTextColor(Color.parseColor("#99000000"));
+                bottom_tv_equipment.setTextColor(Color.parseColor("#99000000"));
                 bottom_tv_user.setTextColor(Color.parseColor("#1297dd"));
                 break;
         }
