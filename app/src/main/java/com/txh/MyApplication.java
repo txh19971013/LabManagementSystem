@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class MyApplication extends Application {
 
-    public static Long teacherId = new Long(1);
-    public static String realname = "红标";
+    public static Long teacherId;
+    public static String realname;
     public static String college;
     public static Integer teacherSex;
 

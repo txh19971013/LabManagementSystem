@@ -2,6 +2,7 @@ package com.txh.admin;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.txh.R;
 import com.txh.UserFragment;
+import com.txh.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,8 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     private ImageView bottom_iv_course, bottom_iv_manage, bottom_iv_user, bottom_iv_equipment, bottom_iv_current;
     private TextView bottom_tv_course, bottom_tv_manage, bottom_tv_equipment, bottom_tv_user;
 
+    private long exitTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,21 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         initPager();
         initBottom();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis() - exitTime) > 2000){
+                ToastUtil.showLongToastCenter(this,"再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void initPager() {

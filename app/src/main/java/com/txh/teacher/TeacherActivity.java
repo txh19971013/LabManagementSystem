@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.txh.R;
 import com.txh.UserFragment;
+import com.txh.utils.ToastUtil;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,9 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
     private TextView bottom_tv_course, bottom_tv_apply, bottom_tv_user;
     private TextView title_view;
     private View inflate;
+
+    private long exitTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,21 @@ public class TeacherActivity extends AppCompatActivity implements View.OnClickLi
 
         initPager();
         initBottom();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis() - exitTime) > 2000){
+                ToastUtil.showLongToastCenter(this,"再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void initPager() {

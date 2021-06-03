@@ -25,6 +25,7 @@
                 android:src="@drawable/icon_username"/>
 
             <EditText
+                android:id="@+id/main_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"
@@ -54,6 +55,7 @@
                 android:src="@drawable/icon_password" />
 
             <EditText
+                android:id="@+id/main_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dip"

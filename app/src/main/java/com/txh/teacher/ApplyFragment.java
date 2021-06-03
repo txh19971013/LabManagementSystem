@@ -3,6 +3,7 @@ package com.txh.teacher;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +100,7 @@ public class ApplyFragment extends Fragment {
     private void getApplyHistory(Long teacherId) {
         //实例化OkHttp的请求器
         OkHttpClient okHttpClient = new OkHttpClient();
-        String url = UrlUtil.url +  "/equipment/getApplyById?teacherId=1";
+        String url = UrlUtil.url +  "/equipment/getApplyById?teacherId=" + teacherId;
         //实例化请求对象，get请求一般是不上传参数的，get请求要上传参数的话就在get后面写?key=value，多个参数用&分隔
         Request request = new Request.Builder()
                 .url(url)
