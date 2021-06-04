@@ -9,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -63,13 +64,50 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Spinner main_idCard;
 	Integer userType = 0;
 
+	private SharedPreferences mSharedPreferences;//用来读
+	private SharedPreferences.Editor mEditor;//用来写
+	//登录状态
+	private final Integer isAdmin = 0;
+	private final Integer isTeacher = 1;
+	private final Integer isNull = 2;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		//实例化SharedPreferences，第一个参数是“文件名称”，第二个参数是“创建文件的模式”
+		mSharedPreferences = getSharedPreferences("LoginStatus", MODE_PRIVATE);
+		//实例化SharedPreferences.Editor
+		mEditor = mSharedPreferences.edit();
 
-		initView();
+		//判断文件中存储的登录状态
+		if (mSharedPreferences.getInt("loginStatus", -1) == -1) {//程序第一次运行，文件未创建
+			//写数据，键值对形式
+			mEditor.putInt("loginStatus", isNull);
+			mEditor.putLong("teacherId", -1L);
+			mEditor.putString("realname", null);
+			//提交数据，只有提交了数据才会写入到xml文件中
+			mEditor.apply();
+		}
+
+		if (mSharedPreferences.getInt("loginStatus", -1) == isNull) {//未登录
+			initView();
+		} else if (mSharedPreferences.getInt("loginStatus", -1) == isAdmin) {//登录的管理员
+			//读出数据放到MyApplication中
+			MyApplication.teacherId = mSharedPreferences.getLong("teacherId", -1L);
+			MyApplication.realname = mSharedPreferences.getString("realname", "");
+			startActivity(new Intent(MainActivity.this, AdminActivity.class));
+			//结束这个Activity
+			MainActivity.super.finish();
+		} else {//登录的教师
+			//读出数据放到MyApplication中
+			MyApplication.teacherId = mSharedPreferences.getLong("teacherId", -1L);
+			MyApplication.realname = mSharedPreferences.getString("realname", "");
+			startActivity(new Intent(MainActivity.this, TeacherActivity.class));
+			//结束这个Activity
+			MainActivity.super.finish();
+		}
 	}
 
 	private void initView() {
@@ -114,8 +152,15 @@ public class MainActivity extends Activity implements OnClickListener {
 				//隐藏输入的用户名和密码
 				mName.setVisibility(View.INVISIBLE);
 				mPsw.setVisibility(View.INVISIBLE);
+				MyApplication.teacherId = 0L;
 				MyApplication.realname = "管理员";
 				showMessage("登录成功");
+				//写数据，键值对形式
+				mEditor.putInt("loginStatus", isAdmin);
+				mEditor.putLong("teacherId", MyApplication.teacherId);
+				mEditor.putString("realname", MyApplication.realname);
+				//提交数据，只有提交了数据才会写入到xml文件中
+				mEditor.apply();
 				//开始动画并跳转界面
 				inputAnimator(mInputLayout, mWidth);
 			} else {
@@ -194,11 +239,10 @@ public class MainActivity extends Activity implements OnClickListener {
 //								ToastUtil.showShortToast(MainActivity.this,"登陆成功");
 								if (userType == 0) {
 									startActivity(new Intent(MainActivity.this, AdminActivity.class));
-									//结束这个Activity
 								} else {
 									startActivity(new Intent(MainActivity.this, TeacherActivity.class));
-									//结束这个Activity
 								}
+								//结束这个Activity
 								MainActivity.super.finish();
 							}
 						});
@@ -270,6 +314,12 @@ public class MainActivity extends Activity implements OnClickListener {
 								MyApplication.teacherId = loginInfo.getUser().getUserId();
 								MyApplication.realname = loginInfo.getUser().getRealname();
 								showMessage(loginInfo.getMsg());
+								//写数据，键值对形式
+								mEditor.putInt("loginStatus", isTeacher);
+								mEditor.putLong("teacherId", MyApplication.teacherId);
+								mEditor.putString("realname", MyApplication.realname);
+								//提交数据，只有提交了数据才会写入到xml文件中
+								mEditor.apply();
 								//开始动画并跳转界面
 								inputAnimator(mInputLayout, mWidth);
 							}
